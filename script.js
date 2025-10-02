@@ -5,8 +5,22 @@ let colorSelected;
 
 // Add a row
 function addR() {
-    alert("Clicked Add Row"); // Replace this line with your code.
+    const table = document.getElementById("grid"); // 获取表格
+    const newRow = document.createElement("tr");   // 创建新的一行
+
+    // 如果表格还没有列，就创建1个空单元格
+    const cols = table.rows[0] ? table.rows[0].cells.length : 1;
+    for (let i = 0; i < cols; i++) {
+        const newCell = document.createElement("td");
+        newCell.onclick = function() {
+            this.style.backgroundColor = colorSelected; // 点击时染色
+        };
+        newRow.appendChild(newCell);
+    }
+
+    table.appendChild(newRow); // 把新行添加到表格
 }
+
 
 // Add a column
 function addC() {

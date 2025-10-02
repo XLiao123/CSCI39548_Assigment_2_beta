@@ -1,11 +1,38 @@
 // Declare global variables
-let numRows = 0;
-let numCols = 0;
-let colorSelected; 
+let rows = 0;
+let cols = 0;
+// === Story 2: Add Row ONLY ===
 
-// Add a row
+// If you already had globals, you can keep them; not required for add-row
+let colorSelected; // unused here, but safe to keep if your HTML references it
+
+const grid = document.getElementById('grid');
+const btnAddRow = document.getElementById('btnAddRow');
+
+// Decide how many columns a new row should have.
+// If the table is empty, start with 1 column.
+// Otherwise, match the first row's column count.
+function getColumnCount() {
+  if (grid.rows.length === 0) return 1;
+  return Math.max(1, grid.rows[0].cells.length);
+}
+
+// Create a new row and fill it with the right number of cells.
+function addRow() {
+  const colCount = getColumnCount();
+  const tr = grid.insertRow();
+  for (let c = 0; c < colCount; c++) {
+    const td = tr.insertCell();
+    td.className = 'cell'; // helpful for later stories, harmless now
+  }
+}
+
+// If you have a button with id="btnAddRow"
+if (btnAddRow) btnAddRow.onclick = addRow;
+
+// If your HTML uses onclick="addR()", keep this alias
 function addR() {
-    alert("Clicked Add Row"); // Replace this line with your code.
+  addRow();
 }
 
 // Add a column

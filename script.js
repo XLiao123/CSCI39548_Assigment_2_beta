@@ -1,12 +1,23 @@
 // Declare global variables
-let numRows = 0;
-let numCols = 0;
+let rows = 0;
+let cols = 0;
 let colorSelected; 
 
-// Add a row
-function addR() {
-    alert("Clicked Add Row"); // Replace this line with your code.
+const grid = document.getElementById('grid');
+const btnAddRow = document.getElementById('btnAddRow');
+
+function getColumnCount() {
+  if (grid.rows.length === 0) return 1;
+  return Math.max(1, grid.rows[0].cells.length);
 }
+// Add a row
+function addRow() {
+  const cols = getColumnCount();
+  const tr = grid.insertRow();
+  for (let c = 0; c < cols; c++) {
+    const td = tr.insertCell();
+    td.className = 'cell'; // used later for coloring features
+  }
 
 // Add a column
 function addC() {

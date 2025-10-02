@@ -18,6 +18,7 @@ function addRow() {
     const td = tr.insertCell();
     td.className = 'cell'; // used later for coloring features
   }
+  btnAddRow.onclick = addRow;
 
 // Add a column
 function addC() {

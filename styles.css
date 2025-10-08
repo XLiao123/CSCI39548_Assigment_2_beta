@@ -10,10 +10,6 @@ td{
 
 
 
-
-
-
-/* ===== 全局背景 & 字体 ===== */
 :root{
   --bg:#f5f7fb;
   --card:#ffffff;
@@ -37,14 +33,12 @@ body{
     var(--bg);
 }
 
-/* ===== 页面容器（给原有内容一个“居中”效果） ===== */
 body > *{
   max-width: 960px;
   margin: 20px auto;
   padding: 0 16px;
 }
 
-/* ===== 顶部标题（如果页面已有 <title> 就不处理，这里给 body 第一个 h1 渲染） ===== */
 h1:first-of-type{
   text-align:center;
   font-size: clamp(28px, 3.4vw, 40px);
@@ -53,7 +47,6 @@ h1:first-of-type{
 }
 h1:first-of-type + p{ text-align:center; color:var(--muted); margin-top:0; }
 
-/* ===== 按钮（不改 HTML：直接作用于所有 button） ===== */
 button{
   padding:10px 14px;
   border-radius:10px;
@@ -68,7 +61,6 @@ button{
 button:hover{ transform: translateY(-1px); box-shadow: var(--ring-soft); }
 button:active{ transform: translateY(0); }
 
-/* “主操作”按钮：按顺序把 Fill/ Clear 高亮（若顺序不同，不影响使用） */
 button:nth-of-type(5),
 button:nth-of-type(6){
   background: var(--primary);
@@ -81,7 +73,6 @@ button:nth-of-type(7){
   border-color: transparent;
 }
 
-/* ===== 下拉选择器（SELECT） ===== */
 select{
   appearance:none;
   padding:10px 12px;
@@ -92,7 +83,6 @@ select{
   margin-left:8px;
 }
 
-/* ===== 表格卡片 & 表格样式（不改 HTML） ===== */
 table{
   border-collapse: separate;
   border-spacing: 6px;
@@ -116,7 +106,6 @@ td:hover{
   border-color:#cbd5e1;
 }
 
-/* ===== 小屏适配 ===== */
 @media (max-width:640px){
   button{ margin-top:8px; }
   td{ height:44px; width:44px; }

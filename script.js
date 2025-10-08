@@ -1,81 +1,100 @@
-// ----- Global state -----
+// Declare global variables
 let numRows = 0;
 let numCols = 0;
-let colorSelected = null; // 只保留这一份全局变量
+let colorSelected; 
 
-// ----- Helpers -----
-function makeCell() {
-  const td = document.createElement("td");
-  td.onclick = function () {
-    if (colorSelected) this.style.backgroundColor = colorSelected;
-  };
-  return td;
-}
-
-// ----- Row / Column operations -----
+// Add a row
 function addR() {
-  const table = document.getElementById("grid");
-  const tr = document.createElement("tr");
-
-  const cols = table.rows[0] ? table.rows[0].cells.length : 1;
-  for (let i = 0; i < cols; i++) tr.appendChild(makeCell());
-
-  table.appendChild(tr);
-  numRows++;
+    let grid = document.getElementById("grid");
+    let row = grid.insertRow(numRows);
+    if (numCols === 0) {
+        let cell = row.insertCell(0);
+        cell.onclick = function(){
+            this.style.backgroundColor = colorSelected;
+        };
+        numCols++;
+    }
+    else{
+        for (let i = 0; i < numCols; i++) {
+            let cell = row.insertCell(i);
+            cell.onclick = function(){
+                this.style.backgroundColor = colorSelected;
+            };
+        }
+    }
+    numRows++;
 }
 
+// Add a column
 function addC() {
-  const table = document.getElementById("grid");
-  const rows = table.rows;
-
-  if (rows.length === 0) {
-    addR();
-    return;
-  }
-  for (let i = 0; i < rows.length; i++) rows[i].appendChild(makeCell());
-  numCols++;
+    let rows = document.getElementsByTagName("tr");
+    if(rows.length === 0){
+        addR();
+        return;
+    }
+    for (let i = 0; i < numRows; i++) {
+        let cell = rows[i].insertCell(numCols);
+        cell.onclick = function(){
+            this.style.backgroundColor = colorSelected;
+        };
+    }
+    numCols++;
 }
 
+// Remove a row
 function removeR() {
-  const table = document.getElementById("grid");
-  if (table.rows.length === 0) return;
-  table.deleteRow(-1);
-  numRows = Math.max(0, numRows - 1);
+    if(numRows === 0) return;
+    let grid = document.getElementById("grid");
+    grid.deleteRow(numRows-1);
+    numRows--;
+    if(numRows === 0){
+        numCols = 0;
+    }
 }
 
+// Remove a column
 function removeC() {
-  const table = document.getElementById("grid");
-  const rows = table.rows;
-  if (rows.length === 0) return;
-  if (rows[0].cells.length === 0) return;
-
-  for (let i = 0; i < rows.length; i++) rows[i].deleteCell(-1);
-  numCols = Math.max(0, numCols - 1);
+    if(numCols === 0) return;
+    let rows = document.getElementsByTagName("tr");
+    for (let i = 0; i < numRows; i++) {
+        rows[i].deleteCell(numCols-1);
+    }
+    numCols--;
+    if(numCols === 0){
+        let grid = document.getElementById("grid");
+        grid.innerHTML = "";
+        numRows = 0;
+    }
 }
 
-// ----- Color selection -----
-function selectColor() {
-  const v = document.getElementById("selectedColorId").value;
-  colorSelected = (v === "SELECT") ? null : v;
+// Set global variable for selected color
+function selectColor(){
+    colorSelected = document.getElementById("selectedColorId").value;
+    console.log(colorSelected);
 }
 
-// ----- Fill / Clear -----
-function fillU() {
-  if (!colorSelected) return; // 未选颜色就不做
-  const cells = document.querySelectorAll("#grid td");
-  cells.forEach(td => {
-    if (!td.style.backgroundColor) td.style.backgroundColor = colorSelected;
-  });
+// Fill all uncolored cells
+function fillU(){
+    let cells = document.getElementsByTagName("td");
+    for (let i = 0; i < cells.length; i++) {
+        if (cells[i].style.backgroundColor === "" || cells[i].style.backgroundColor === "white") {
+            cells[i].style.backgroundColor = colorSelected;
+        }
+    }
 }
 
-function fillAll() {
-  if (!colorSelected) return;
-  const cells = document.querySelectorAll("#grid td");
-  cells.forEach(td => td.style.backgroundColor = colorSelected);
+// Fill all cells
+function fillAll(){
+    let cells = document.getElementsByTagName("td");
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].style.backgroundColor = colorSelected;
+    }
 }
 
-function clearAll() {
-  const cells = document.querySelectorAll("#grid td");
-  cells.forEach(td => td.style.backgroundColor = "");
+// Clear all cells
+function clearAll(){
+    let cells = document.getElementsByTagName("td");
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].style.backgroundColor = "white";
+    }
 }
-

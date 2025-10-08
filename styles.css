@@ -7,3 +7,117 @@ td{
     width: 50px;
     background-color: white;
 }
+
+
+
+
+
+
+/* ===== 全局背景 & 字体 ===== */
+:root{
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --primary:#2563eb;
+  --danger:#ef4444;
+  --ring:0 10px 30px rgba(37,99,235,.15);
+  --ring-soft:0 6px 18px rgba(2,8,23,.08);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 400px at 10% -10%, #dbeafe 0%, transparent 60%),
+    radial-gradient(1000px 400px at 110% 0%, #fce7f3 0%, transparent 55%),
+    var(--bg);
+}
+
+/* ===== 页面容器（给原有内容一个“居中”效果） ===== */
+body > *{
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+/* ===== 顶部标题（如果页面已有 <title> 就不处理，这里给 body 第一个 h1 渲染） ===== */
+h1:first-of-type{
+  text-align:center;
+  font-size: clamp(28px, 3.4vw, 40px);
+  margin: 28px 0 6px;
+  letter-spacing:.5px;
+}
+h1:first-of-type + p{ text-align:center; color:var(--muted); margin-top:0; }
+
+/* ===== 按钮（不改 HTML：直接作用于所有 button） ===== */
+button{
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  color:var(--ink);
+  font-weight:600;
+  cursor:pointer;
+  margin:6px 6px 0 0;
+  transition: transform .06s, box-shadow .18s, background .18s, border-color .18s;
+}
+button:hover{ transform: translateY(-1px); box-shadow: var(--ring-soft); }
+button:active{ transform: translateY(0); }
+
+/* “主操作”按钮：按顺序把 Fill/ Clear 高亮（若顺序不同，不影响使用） */
+button:nth-of-type(5),
+button:nth-of-type(6){
+  background: var(--primary);
+  color:#fff;
+  border-color: transparent;
+}
+button:nth-of-type(7){
+  background: var(--danger);
+  color:#fff;
+  border-color: transparent;
+}
+
+/* ===== 下拉选择器（SELECT） ===== */
+select{
+  appearance:none;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  font-weight:600;
+  margin-left:8px;
+}
+
+/* ===== 表格卡片 & 表格样式（不改 HTML） ===== */
+table{
+  border-collapse: separate;
+  border-spacing: 6px;
+  margin: 12px 0 24px;
+  background: var(--card);
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: var(--ring);
+}
+td{
+  height:54px; width:54px;
+  background:#ffffff;
+  border-radius:10px;
+  border:1px dashed #d1d5db;
+  transition: box-shadow .18s, transform .06s, border-color .18s, background .18s;
+  cursor:pointer;
+}
+td:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(2,8,23,.08);
+  border-color:#cbd5e1;
+}
+
+/* ===== 小屏适配 ===== */
+@media (max-width:640px){
+  button{ margin-top:8px; }
+  td{ height:44px; width:44px; }
+}
